@@ -1,4 +1,5 @@
-# RYVU interview test for sgRNA, mapping to human genome; and annotation to describe associated gene expression on Human Genome
+# RYVU interview test: 
+### Mapping sgRNA to human genome; identification and annotation to describe associated gene expression
 
 ## Overview
 This project involves downloading the human reference genome (GRCh38) and annotation gff3 file using the `wget` command from Ensembl. The downloaded human genome GRCh38 file is then indexed and used to map sgRNA sequences using `bowtie2-build` and `bowtie2`.
@@ -28,14 +29,14 @@ bowtie2 -p 12 -U library.fa -f -x ./chromosomes/humanIndex -S 01_processing/all_
 
 ## Running Annotation
 
-The sequence alignment map (SAM) file is converted to binary format and sorted using `samtools` with the following commands:
+The sequence alignment map (SAM) file is converted to binary format (BAM) and sorted using `samtools` with the following commands:
 
 ```
 samtools view -S -b all_library.sam > all_library.bam
 samtools sort all_library.bam > all_library_sorted.bam
 ```
 
-`Bedtools` is used to convert the gff annotation file to bed format using the `gff2bed` command:
+`Bedtools` is used to convert the gff annotation file to bed format using the `gff2bed`, then sorted as follows:
 
 ```
 gff2bed < ../../Homo_sapiens.GRCh38.109.chr.gff3 > Human_gff.bed
@@ -48,4 +49,4 @@ The intersection of the annotation bed file with the bam file is done using `bed
 bedtools intersect -bed -a 02_gff_bam/all_library_sorted.bam -b 02_gff_bam/Human_gff_sorted.bed -wa -wb > 03_bam_bed/intersecting.bed
 ```
 
-The intersecting bed file will contain both the library sgRNA identifiers and the gene annotations associated. A custom-made script was used to extract only gene annotations.
+The intersecting bed file will contain both the library sgRNA identifiers and the gene annotations associated. A custom-made script was used to extract only gene annotations, used for generating gene expression matrix for comparison with TCGA-BRCA datasets.
