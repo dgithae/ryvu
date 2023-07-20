@@ -11,6 +11,7 @@ The reference genome and annotation gff3 file can be downloaded using the follow
 ```
 wget https://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.{1..22}.fa.gz
 wget https://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.{X..Y}.fa.gz
+wget https://ftp.ensembl.org/pub/release-109/gff3/homo_sapiens/Homo_sapiens.GRCh38.109.gff3.gz
 ```
 
 ## Mapping sgRNA Sequences
